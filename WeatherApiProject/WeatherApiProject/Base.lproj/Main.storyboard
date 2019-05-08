@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,11 +13,60 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WeatherApiProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="970-du-NyM">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AdR-78-LSh" userLabel="dim">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pIG-KT-g4E" userLabel="Header">
+                                <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ih0-eo-mJf">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Ih0-eo-mJf" firstAttribute="top" secondItem="pIG-KT-g4E" secondAttribute="top" id="405-sl-CkX"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ih0-eo-mJf" secondAttribute="trailing" id="OwY-n9-mwF"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ih0-eo-mJf" secondAttribute="bottom" id="Tos-cy-5gL"/>
+                                    <constraint firstItem="Ih0-eo-mJf" firstAttribute="leading" secondItem="pIG-KT-g4E" secondAttribute="leading" id="Y3Z-6l-8z9"/>
+                                    <constraint firstAttribute="height" constant="60" id="m7M-hj-sfd"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tv1-ar-zOT">
+                                <rect key="frame" x="0.0" y="104" width="414" height="758"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="970-du-NyM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="2Fd-ZE-x2w"/>
+                            <constraint firstItem="pIG-KT-g4E" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4Bq-2k-Jmo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pIG-KT-g4E" secondAttribute="trailing" id="7IL-im-cpk"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tv1-ar-zOT" secondAttribute="trailing" id="8Ru-xl-VfE"/>
+                            <constraint firstItem="970-du-NyM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="8cq-Gi-1Qa"/>
+                            <constraint firstItem="Tv1-ar-zOT" firstAttribute="top" secondItem="pIG-KT-g4E" secondAttribute="bottom" id="Cmx-3U-f9C"/>
+                            <constraint firstItem="AdR-78-LSh" firstAttribute="width" secondItem="970-du-NyM" secondAttribute="width" id="DFB-wd-34B"/>
+                            <constraint firstAttribute="bottom" secondItem="970-du-NyM" secondAttribute="bottom" id="GaF-Hf-fZf"/>
+                            <constraint firstItem="pIG-KT-g4E" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HSe-sZ-qa1"/>
+                            <constraint firstItem="AdR-78-LSh" firstAttribute="centerY" secondItem="970-du-NyM" secondAttribute="centerY" id="LUX-QT-Te9"/>
+                            <constraint firstAttribute="trailing" secondItem="970-du-NyM" secondAttribute="trailing" id="ZUE-Xs-Iwe"/>
+                            <constraint firstItem="AdR-78-LSh" firstAttribute="height" secondItem="970-du-NyM" secondAttribute="height" id="aFe-TL-pjt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Tv1-ar-zOT" secondAttribute="bottom" id="fw5-QN-QoU"/>
+                            <constraint firstItem="AdR-78-LSh" firstAttribute="centerX" secondItem="970-du-NyM" secondAttribute="centerX" id="idB-VR-1W6"/>
+                            <constraint firstItem="Tv1-ar-zOT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="teJ-Gp-T3u"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -21,4 +74,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="1909" height="2996"/>
+    </resources>
 </document>
