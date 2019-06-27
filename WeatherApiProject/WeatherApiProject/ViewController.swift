@@ -15,6 +15,17 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
+    
+    loadJsonData()
+  }
+  
+  func loadJsonData() {
+    if let path = Bundle.main.path(forResource: "Data", ofType: "json"),
+      let contents = try? String(contentsOfFile: path),
+      let data = contents.data(using: .utf8) {
+      print(contents)
+      print(data)
+    }
   }
 
 
