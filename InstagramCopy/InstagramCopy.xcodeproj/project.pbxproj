@@ -52,7 +52,6 @@
 				D2F88D2B6F1BCD2ED78396AB /* Pods-InstagramCopy.debug.xcconfig */,
 				2CCCCDFD3747503565E22137 /* Pods-InstagramCopy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -408,6 +407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7F7W8C3A76;
 				INFOPLIST_FILE = InstagramCopy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -427,6 +427,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7F7W8C3A76;
 				INFOPLIST_FILE = InstagramCopy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

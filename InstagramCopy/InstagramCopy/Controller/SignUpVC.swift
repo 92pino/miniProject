@@ -9,12 +9,14 @@
 import UIKit
 import Firebase
 
-class SignUpVC: UIViewController {
+class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    var imageSelected = false
     
     let plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
-        
+        button.addTarget(self, action: #selector(handleSelectProfilePhoto(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -47,6 +49,7 @@ class SignUpVC: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         
         return tf
     }()
@@ -57,6 +60,7 @@ class SignUpVC: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
+        tf.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         
         return tf
     }()
@@ -100,14 +104,52 @@ class SignUpVC: UIViewController {
         alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        // selected image
+        guard let profileImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            
+            imageSelected = false
+            return
+            
+        }
+        
+        // set imageSelected to true
+        imageSelected = true
+        
+        // configure plusPhotoBtn with selected image
+        plusPhotoButton.layer.cornerRadius = plusPhotoButton.frame.width / 2
+        plusPhotoButton.layer.masksToBounds = true
+        plusPhotoButton.layer.borderColor = UIColor.black.cgColor
+        plusPhotoButton.layer.borderWidth = 2
+        plusPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    @objc func handleSelectProfilePhoto(_ sender: UIButton) {
+        
+        // configure Image Picker
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
+        // present image picker
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
     @objc func handleShowLogin(_ sender: UIButton) {
         _ = navigationController?.popViewController(animated: true)
     }
     
     @objc func handleSignUp(_ sender: UIButton) {
         
+        // properties
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
+        guard let fullName = fullNameTextField.text else { return }
+        guard let userName = userNameTextField.text else { return }
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             
@@ -117,6 +159,32 @@ class SignUpVC: UIViewController {
                 return
             }
             
+            // set profile image
+            guard let profileImg = self.plusPhotoButton.imageView?.image else { return }
+            
+            // upload data
+            guard let uploadData = profileImg.jpegData(compressionQuality: 0.3) else { return }
+            
+            // place image in firebase storage
+            let filename = NSUUID().uuidString
+            Storage.storage().reference().child("profile_images").child(filename).putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                
+                // handle error
+                if let error = error {
+                    print("failed to upload image to Firebase Storage with error.", error.localizedDescription)
+                }
+                
+                // profile image url
+//                guard let profileImageURL = metadata
+                
+                let dictionaryValues = [
+                    "name": fullName,
+                    "username": userName,
+//                    "profileImageUrl": profileImageURL
+                ]
+                
+            })
+            
             // success
             print("Successfully created with Firebase")
             
@@ -124,11 +192,15 @@ class SignUpVC: UIViewController {
         
     }
     
+    // textfield에 값이 없을 경우 Sign Up 버튼 enabled 처리
     @objc func formValidation() {
         
         guard
             emailTextField.hasText,
-            passwordTextField.hasText else {
+            passwordTextField.hasText,
+            fullNameTextField.hasText,
+            userNameTextField.hasText,
+            imageSelected == true else {
                 signUpButton.isEnabled = false
                 signUpButton.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
                 
