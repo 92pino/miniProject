@@ -88,10 +88,10 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // backgroundColor
         view.backgroundColor = .white
         
@@ -175,18 +175,25 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 }
                 
                 // profile image url
-//                guard let profileImageURL = metadata
+                guard let profileImageURL = metadata?.downloadURL()?.absoluteString else { return }
+                
+                // user id
+                guard let uid = user.uid else { return }
                 
                 let dictionaryValues = [
                     "name": fullName,
                     "username": userName,
-//                    "profileImageUrl": profileImageURL
+                    "profileImageUrl": profileImageURL
                 ]
                 
+                let values = [uid: dictionaryValues]
+                
+                // save yser ubfi ti database
+                Database.database().reference().child("users").updateChildValues(dictionaryValues, withCompletionBlock: { (error, ref) in
+                    print("Successfully created user and saved information to database")
+                })
+                
             })
-            
-            // success
-            print("Successfully created with Firebase")
             
         }
         
@@ -223,5 +230,5 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         stackView.anchor(top: plusPhotoButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 240)
         
     }
-
+    
 }
