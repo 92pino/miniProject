@@ -196,7 +196,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     let values = [uid: dictionaryValues]
                     
                     // save user info to database
-                    Database.database().reference().child("users").updateChildValues(dictionaryValues, withCompletionBlock: {(error, ref) in
+                    Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: {(error, ref) in
                         print("Successfully created user and saved information to database")
                     })
                 })
