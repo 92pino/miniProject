@@ -104,6 +104,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
     
+    // function that handles selecting image from camera roll
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         // selected image
@@ -151,7 +152,9 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         guard let fullName = fullNameTextField.text else { return }
         guard let userName = userNameTextField.text else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+        print("Email is \(email) and password is \(password)")
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             
             // handle error
             if let error = error {
@@ -167,30 +170,35 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             // place image in firebase storage
             let filename = NSUUID().uuidString
-            Storage.storage().reference().child("profile_images").child(filename).putData(uploadData, metadata: nil, completion: { (metadata, error) in
+            let storageRef = Storage.storage().reference().child("profile_images").child(filename)
+            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 
                 // handle error
                 if let error = error {
                     print("failed to upload image to Firebase Storage with error.", error.localizedDescription)
                 }
                 
-                // profile image url
-                guard let profileImageURL = metadata?.downloadURL()?.absoluteString else { return }
-                
-                // user id
-                guard let uid = user.uid else { return }
-                
-                let dictionaryValues = [
-                    "name": fullName,
-                    "username": userName,
-                    "profileImageUrl": profileImageURL
-                ]
-                
-                let values = [uid: dictionaryValues]
-                
-                // save yser ubfi ti database
-                Database.database().reference().child("users").updateChildValues(dictionaryValues, withCompletionBlock: { (error, ref) in
-                    print("Successfully created user and saved information to database")
+                storageRef.downloadURL(completion: { (downloadURL, error) in
+                    guard let profileImageUrl = downloadURL?.absoluteString else {
+                        print("DEBUG : Profile image url is nil")
+                        return
+                    }
+                    
+                    // user id
+                    guard let uid = authResult?.user.uid else { return }
+                    
+                    let dictionaryValues = [
+                        "name" : fullName,
+                        "userName" : userName,
+                        "profileImageUrl" : profileImageUrl
+                    ]
+                    
+                    let values = [uid: dictionaryValues]
+                    
+                    // save user info to database
+                    Database.database().reference().child("users").updateChildValues(dictionaryValues, withCompletionBlock: {(error, ref) in
+                        print("Successfully created user and saved information to database")
+                    })
                 })
                 
             })

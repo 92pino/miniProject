@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0FFFA7FC4679BDA041478439 /* Pods_InstagramCopy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480589320489B0BD1D80D47 /* Pods_InstagramCopy.framework */; };
+		6171151A2334AD07002BBD5F /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617115192334AD07002BBD5F /* MainTabVC.swift */; };
 		61E01E6E228A576200045833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E01E6D228A576200045833 /* AppDelegate.swift */; };
 		61E01E73228A576200045833 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61E01E71228A576200045833 /* Main.storyboard */; };
 		61E01E75228A576500045833 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61E01E74228A576500045833 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		2480589320489B0BD1D80D47 /* Pods_InstagramCopy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramCopy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CCCCDFD3747503565E22137 /* Pods-InstagramCopy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramCopy.release.xcconfig"; path = "Target Support Files/Pods-InstagramCopy/Pods-InstagramCopy.release.xcconfig"; sourceTree = "<group>"; };
+		617115192334AD07002BBD5F /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
 		61E01E6A228A576200045833 /* InstagramCopy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramCopy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61E01E6D228A576200045833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61E01E72228A576200045833 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				61E01E82228A57E200045833 /* LoginVC.swift */,
 				61E01EF822911BED00045833 /* SignUpVC.swift */,
+				617115192334AD07002BBD5F /* MainTabVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				61E01EF922911BED00045833 /* SignUpVC.swift in Sources */,
 				61E01E83228A57E200045833 /* LoginVC.swift in Sources */,
 				61E01E86228A59D300045833 /* Extensions.swift in Sources */,
+				6171151A2334AD07002BBD5F /* MainTabVC.swift in Sources */,
 				61E01E6E228A576200045833 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
