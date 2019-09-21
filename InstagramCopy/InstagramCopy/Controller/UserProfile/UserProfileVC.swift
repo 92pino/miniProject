@@ -97,7 +97,6 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
     
     func handleEditFollowTapped(for header: UserProfileHeader) {
-        print(1111)
         guard let user = header.user else { return }
         
         if header.editProfileFollowButton.titleLabel?.text == "Edit Profile" {

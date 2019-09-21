@@ -64,6 +64,7 @@ class User {
         // UPDATE: - get uid like this to work with update
         guard let uid = uid else { return }
         
+        // set is followed to false
         self.isFollowed = false
         
         USER_FOLLOWING_REF.child(currentUid).child(uid).removeValue()
@@ -73,6 +74,21 @@ class User {
         USER_POSTS_REF.child(uid).observe(.childAdded) { (snapshot) in
             let postId = snapshot.key
             USER_FEED_REF.child(currentUid).child(postId).removeValue()
+        }
+    }
+    
+    func checkIfUserIsFollowed(completion: @escaping(Bool) -> ()) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        USER_FOLLOWING_REF.child(currentUid).observe(.value) { (snapshot) in
+            
+            
+            if snapshot.hasChild(self.uid) {
+                self.isFollowed = true
+                completion(true)
+            } else {
+                self.isFollowed = false
+                completion(false)
+            }
         }
     }
     

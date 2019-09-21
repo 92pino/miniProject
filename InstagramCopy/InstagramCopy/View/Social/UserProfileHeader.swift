@@ -61,7 +61,7 @@ class UserProfileHeader: UICollectionViewCell {
         return label
     }()
     
-    let followersLabel: UILabel = {
+    lazy var followersLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -79,7 +79,7 @@ class UserProfileHeader: UICollectionViewCell {
         return label
     }()
     
-    let followingLabel: UILabel = {
+    lazy var followingLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -97,7 +97,7 @@ class UserProfileHeader: UICollectionViewCell {
         return label
     }()
     
-    let editProfileFollowButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Loading", for: .normal)
         button.layer.cornerRadius = 3
@@ -141,6 +141,7 @@ class UserProfileHeader: UICollectionViewCell {
     }
     
     @objc func handleEditProfileFollow() {
+        print(1111)
         delegate?.handleEditFollowTapped(for: self)
     }
     
@@ -196,9 +197,17 @@ class UserProfileHeader: UICollectionViewCell {
         } else {
             
             // configure button as follow button
-            editProfileFollowButton.setTitle("Follow", for: .normal)
             editProfileFollowButton.setTitleColor(.white, for: .normal)
             editProfileFollowButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+            
+            user.checkIfUserIsFollowed { (followed) in
+                
+                if followed {
+                    self.editProfileFollowButton.setTitle("Following", for: .normal)
+                } else {
+                    self.editProfileFollowButton.setTitle("Follow", for: .normal)
+                }
+            }
             
         }
         
