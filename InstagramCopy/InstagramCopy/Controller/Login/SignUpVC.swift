@@ -150,7 +150,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         guard let fullName = fullNameTextField.text else { return }
-        guard let userName = userNameTextField.text else { return }
+        guard let userName = userNameTextField.text?.lowercased() else { return }
         
         print("Email is \(email) and password is \(password)")
         
@@ -197,7 +197,13 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     
                     // save user info to database
                     Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: {(error, ref) in
-                        print("Successfully created user and saved information to database")
+                        guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else { return }
+                        
+                        // configure view controllers in maintabvc
+                        mainTabVC.configureViewControllers()
+                        
+                        // dismiss login controller
+                        self.dismiss(animated: true, completion: nil)
                     })
                 })
                 
