@@ -16,7 +16,8 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
 
     // MARK: - Properties
     
-    var user: User?
+    var currentUser: User?
+    var userToLoadFromSearchVC: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,9 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         self.collectionView.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
 
         // fetch user data
-        fetchCurrentUserData()
+        if userToLoadFromSearchVC == nil {
+            fetchCurrentUserData()
+        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -55,21 +58,11 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeader
         
         // set the user in header
-        let currentUid = Auth.auth().currentUser?.uid
-        
-        Database.database().reference().child("users").child(currentUid!).observeSingleEvent(of: .value) { (snapshot) in
-            // snapshot이 뭔지 찾아봐야겠음
-            // 추측 : snapshot을 할 경우 현재 로그인? 된 계정의 정보를 Firebase에서 받아와 구조 그대로 뿌려주는 기능으로 생각됨
-            // snapshot 할 경우
-            // key : uid
-            // value : User 클래스 구조대로 나옴
-            print(snapshot)
-            
-            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
-            let uid = snapshot.key
-            let user = User(uid: uid, dictionary: dictionary)
-            self.navigationItem.title = user.userName
+        if let user = self.currentUser {
             header.user = user
+        } else if let userToLoadFromSearchVC = self.userToLoadFromSearchVC {
+            header.user = userToLoadFromSearchVC
+            navigationItem.title = userToLoadFromSearchVC.userName
         }
         
         // return header
@@ -87,7 +80,22 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     // MARK: - API
     func fetchCurrentUserData() {
         
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
+        Database.database().reference().child("users").child(currentUid).observeSingleEvent(of: .value) { (snapshot) in
+            // snapshot이 뭔지 찾아봐야겠음
+            // 추측 : snapshot을 할 경우 현재 로그인? 된 계정의 정보를 Firebase에서 받아와 구조 그대로 뿌려주는 기능으로 생각됨
+            // snapshot 할 경우
+            // key : uid
+            // value : User 클래스 구조대로 나옴
+            
+            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+            let uid = snapshot.key
+            let user = User(uid: uid, dictionary: dictionary)
+            self.currentUser = user
+            self.navigationItem.title = user.userName
+            self.collectionView?.reloadData()
+        }
         
     }
 }
