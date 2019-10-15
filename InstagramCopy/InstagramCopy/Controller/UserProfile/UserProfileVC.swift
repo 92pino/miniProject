@@ -80,20 +80,25 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         return cell
     }
     
-    // MARK: - UserProfileHeader
+    // MARK: - UserProfileHeader Protocol
     
     func handleFollowersTapped(for header: UserProfileHeader) {
-//        let followVC = FollowLikeVC()
+        let followVC = FollowLikeVC()
+        followVC.viewFollowers = true
+        
+        
 //        followVC.viewingMode = FollowLikeVC.ViewingMode(index: 1)
 //        followVC.uid = user?.uid
-//        navigationController?.pushViewController(followVC, animated: true)
+        navigationController?.pushViewController(followVC, animated: true)
     }
     
     func handleFollowingTapped(for header: UserProfileHeader) {
-//        let followVC = FollowLikeVC()
+        let followVC = FollowLikeVC()
+        followVC.viewFollowing = true
+        
 //        followVC.viewingMode = FollowLikeVC.ViewingMode(index: 0)
 //        followVC.uid = user?.uid
-//        navigationController?.pushViewController(followVC, animated: true)
+        navigationController?.pushViewController(followVC, animated: true)
     }
     
     func handleEditFollowTapped(for header: UserProfileHeader) {

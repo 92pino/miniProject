@@ -66,8 +66,8 @@ class UserProfileHeader: UICollectionViewCell {
         label.numberOfLines = 0
         label.textAlignment = .center
         
-        let attributedText = NSMutableAttributedString(string: "5\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "posts", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        let attributedText = NSMutableAttributedString(string: "\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
         label.attributedText = attributedText
         
         // add gesture recognizer
@@ -84,8 +84,8 @@ class UserProfileHeader: UICollectionViewCell {
         label.numberOfLines = 0
         label.textAlignment = .center
         
-        let attributedText = NSMutableAttributedString(string: "5\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "posts", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        let attributedText = NSMutableAttributedString(string: "\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: "following", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
         label.attributedText = attributedText
         
         // add gesture recognizer
@@ -141,7 +141,6 @@ class UserProfileHeader: UICollectionViewCell {
     }
     
     @objc func handleEditProfileFollow() {
-        print(1111)
         delegate?.handleEditFollowTapped(for: self)
     }
     
