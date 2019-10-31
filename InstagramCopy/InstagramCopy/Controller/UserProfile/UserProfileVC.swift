@@ -17,7 +17,6 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     // MARK: - Properties
     
     var user: User?
-    var userToLoadFromSearchVC: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +29,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         self.collectionView.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
 
         // fetch user data
-        if userToLoadFromSearchVC == nil {
+        if self.user == nil {
             fetchCurrentUserData()
         }
     }
@@ -61,12 +60,8 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         header.delegate = self
         
         // set the user in header
-        if let user = self.user {
-            header.user = user
-        } else if let userToLoadFromSearchVC = self.userToLoadFromSearchVC {
-            header.user = userToLoadFromSearchVC
-            navigationItem.title = userToLoadFromSearchVC.userName
-        }
+        header.user = self.user
+        navigationItem.title = user?.userName
         
         // return header
         return header
@@ -85,7 +80,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     func handleFollowersTapped(for header: UserProfileHeader) {
         let followVC = FollowLikeVC()
         followVC.viewFollowers = true
-        
+        followVC.uid = user?.uid
         
 //        followVC.viewingMode = FollowLikeVC.ViewingMode(index: 1)
 //        followVC.uid = user?.uid
@@ -95,6 +90,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     func handleFollowingTapped(for header: UserProfileHeader) {
         let followVC = FollowLikeVC()
         followVC.viewFollowing = true
+        followVC.uid = user?.uid
         
 //        followVC.viewingMode = FollowLikeVC.ViewingMode(index: 0)
 //        followVC.uid = user?.uid

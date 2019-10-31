@@ -59,7 +59,7 @@ class SearchVC: UITableViewController {
         let userProfileVC = UserProfileVC(collectionViewLayout: UICollectionViewFlowLayout())
         
         // passes user from  searchVC to userProfileVC
-        userProfileVC.userToLoadFromSearchVC = user
+        userProfileVC.user = user
         
         // push view controller
         navigationController?.pushViewController(userProfileVC, animated: true)
@@ -86,17 +86,10 @@ class SearchVC: UITableViewController {
             // uid
             let uid = snapshot.key
             
-            // snapshot value cast as dictionary
-            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
-            
-            // construct user
-            let user = User(uid: uid, dictionary: dictionary)
-            
-            // append user to data source
-            self.users.append(user)
-            
-            // reload our table view
-            self.tableView.reloadData()
+            Database.fetchUser(with: uid, completion: { (user) in
+                self.users.append(user)
+                self.tableView.reloadData()
+            })
         }
         
     }

@@ -10,6 +10,9 @@
 		0FFFA7FC4679BDA041478439 /* Pods_InstagramCopy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480589320489B0BD1D80D47 /* Pods_InstagramCopy.framework */; };
 		61371DA72355D96900D42717 /* FollowLikeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61371DA62355D96900D42717 /* FollowLikeVC.swift */; };
 		61371DA92355D9BC00D42717 /* FollowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61371DA82355D9BC00D42717 /* FollowCell.swift */; };
+		61580DC6236B1B05009D806D /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61580DC5236B1B05009D806D /* SelectImageVC.swift */; };
+		61580DC8236B1B86009D806D /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61580DC7236B1B86009D806D /* SelectPhotoCell.swift */; };
+		61580DCA236B1BB3009D806D /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61580DC9236B1BB3009D806D /* SelectPhotoHeader.swift */; };
 		6171151A2334AD07002BBD5F /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617115192334AD07002BBD5F /* MainTabVC.swift */; };
 		6171151C2334B0DF002BBD5F /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6171151B2334B0DF002BBD5F /* FeedVC.swift */; };
 		6171151E2334B0F6002BBD5F /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6171151D2334B0F6002BBD5F /* SearchVC.swift */; };
@@ -36,6 +39,9 @@
 		2CCCCDFD3747503565E22137 /* Pods-InstagramCopy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramCopy.release.xcconfig"; path = "Target Support Files/Pods-InstagramCopy/Pods-InstagramCopy.release.xcconfig"; sourceTree = "<group>"; };
 		61371DA62355D96900D42717 /* FollowLikeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeVC.swift; sourceTree = "<group>"; };
 		61371DA82355D9BC00D42717 /* FollowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCell.swift; sourceTree = "<group>"; };
+		61580DC5236B1B05009D806D /* SelectImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
+		61580DC7236B1B86009D806D /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
+		61580DC9236B1BB3009D806D /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
 		617115192334AD07002BBD5F /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
 		6171151B2334B0DF002BBD5F /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		6171151D2334B0F6002BBD5F /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -110,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				6171151F2334B10E002BBD5F /* UploadPostVC.swift */,
+				61580DC5236B1B05009D806D /* SelectImageVC.swift */,
 			);
 			path = UploadPost;
 			sourceTree = "<group>";
@@ -202,6 +209,8 @@
 			children = (
 				617115302334E377002BBD5F /* Social */,
 				61371DA82355D9BC00D42717 /* FollowCell.swift */,
+				61580DC7236B1B86009D806D /* SelectPhotoCell.swift */,
+				61580DC9236B1BB3009D806D /* SelectPhotoHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -348,12 +357,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61580DC6236B1B05009D806D /* SelectImageVC.swift in Sources */,
+				61580DCA236B1BB3009D806D /* SelectPhotoHeader.swift in Sources */,
 				6171152F2334E00D002BBD5F /* UserProfileHeader.swift in Sources */,
 				6171151C2334B0DF002BBD5F /* FeedVC.swift in Sources */,
 				617115222334B12B002BBD5F /* NotificationsVC.swift in Sources */,
 				6171153623368F5D002BBD5F /* Protocols.swift in Sources */,
 				617115202334B10E002BBD5F /* UploadPostVC.swift in Sources */,
 				61371DA72355D96900D42717 /* FollowLikeVC.swift in Sources */,
+				61580DC8236B1B86009D806D /* SelectPhotoCell.swift in Sources */,
 				6171153823368FF6002BBD5F /* Constants.swift in Sources */,
 				6171153423361E54002BBD5F /* SearchUserCell.swift in Sources */,
 				617115242334B13B002BBD5F /* UserProfileVC.swift in Sources */,

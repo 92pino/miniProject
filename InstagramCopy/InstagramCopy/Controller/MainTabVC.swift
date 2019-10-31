@@ -50,6 +50,22 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
         
     }
     
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        let index = viewControllers?.index(of: viewController)
+        
+        if index == 2 {
+            let selectImageVC = SelectImageVC(collectionViewLayout: UICollectionViewFlowLayout())
+            let navController = UINavigationController(rootViewController: selectImageVC)
+            navController.navigationBar.tintColor = .black
+            
+            present(navController, animated: true, completion: nil)
+            
+            return false
+        }
+        
+        return true
+    }
+    
     // construct navigation controllers
     func constructNavController(unselectedImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
         
