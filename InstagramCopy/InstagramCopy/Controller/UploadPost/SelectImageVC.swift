@@ -18,6 +18,7 @@ class SelectImageVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     var images = [UIImage]()
     var assets = [PHAsset]()
     var selectedImage: UIImage?
+    var header: SelectPhotoHeader?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +69,8 @@ class SelectImageVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! SelectPhotoHeader
         
+        self.header = header
+        
         if let selectedImage = self.selectedImage {
             // index selected image
             if let index = self.images.index(of: selectedImage) {
@@ -98,6 +101,9 @@ class SelectImageVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedImage = images[indexPath.row]
         self.collectionView.reloadData()
+        
+        let indexPath = IndexPath(item: 0, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
     }
     
     // MARK: - Handlers
@@ -107,7 +113,9 @@ class SelectImageVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
     
     @objc func handleNext() {
-        print("Handle next clicked")
+        let uploadPostVC = UploadPostVC()
+        uploadPostVC.selectedImage = header?.photoImageView.image
+        navigationController?.pushViewController(uploadPostVC, animated: true)
     }
     
     func configureNavigationButtons() {
